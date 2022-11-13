@@ -29,7 +29,6 @@ app.get("/updateNews", async (req, res) => {
     let items;
     const result = await http.get(`${API}`);
     let curr = result.data ? result.data.slice(0, 100) : [];
-    console.log(curr);
 
     const bebra = updateNewsList(temp, curr);
     temp = bebra.temp;
