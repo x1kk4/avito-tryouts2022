@@ -30,7 +30,7 @@ export default class NewsService {
   };
 
   static updateNews = () => {
-    return localApi.get("updateNews");
+    return localApi.get("news/update");
   };
 
   static getNewsItem = (id: number) => {
