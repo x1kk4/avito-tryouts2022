@@ -2,6 +2,7 @@ import express from "express";
 import dotenv from "dotenv";
 import { Http, HttpRequestOptions, Method } from "node-https";
 import { updateNewsList } from "./newsService";
+import { startApp } from "./config";
 
 let temp: Number[] = [];
 
@@ -9,7 +10,7 @@ dotenv.config();
 
 const http = new Http();
 
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || "9000";
 const API = process.env.API_HOST;
 
 const app = express();
@@ -24,9 +25,8 @@ app.get("/news", async (req, res) => {
   }
 });
 
-app.get("/updateNews", async (req, res) => {
+app.get("/news/update", async (req, res) => {
   try {
-    let items;
     const result = await http.get(`${API}`);
     let curr = result.data ? result.data.slice(0, 100) : [];
 
@@ -38,12 +38,4 @@ app.get("/updateNews", async (req, res) => {
   }
 });
 
-function startApp() {
-  try {
-    app.listen(PORT, () => console.log(`Running on port ${PORT}`));
-  } catch (e) {
-    console.log(e);
-  }
-}
-
-startApp();
+startApp(app, PORT);

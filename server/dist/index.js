@@ -16,10 +16,11 @@ const express_1 = __importDefault(require("express"));
 const dotenv_1 = __importDefault(require("dotenv"));
 const node_https_1 = require("node-https");
 const newsService_1 = require("./newsService");
+const config_1 = require("./config");
 let temp = [];
 dotenv_1.default.config();
 const http = new node_https_1.Http();
-const PORT = process.env.PORT;
+const PORT = process.env.PORT || "9000";
 const API = process.env.API_HOST;
 const app = (0, express_1.default)();
 app.get("/news", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
@@ -32,9 +33,8 @@ app.get("/news", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
         res.status(500).json;
     }
 }));
-app.get("/updateNews", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+app.get("/news/update", (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        let items;
         const result = yield http.get(`${API}`);
         let curr = result.data ? result.data.slice(0, 100) : [];
         const bebra = (0, newsService_1.updateNewsList)(temp, curr);
@@ -45,12 +45,4 @@ app.get("/updateNews", (req, res) => __awaiter(void 0, void 0, void 0, function*
         res.status(500).json(e);
     }
 }));
-function startApp() {
-    try {
-        app.listen(PORT, () => console.log(`Running on port ${PORT}`));
-    }
-    catch (e) {
-        console.log(e);
-    }
-}
-startApp();
+(0, config_1.startApp)(app, PORT);
