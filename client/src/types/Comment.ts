@@ -1,7 +1,9 @@
 export type Comment = {
-  by: string;
+  by?: string;
+  deleted?: boolean;
+  dead?: boolean;
   id: number;
-  kids: number[];
+  kids?: number[];
   parent: number;
   text: string;
   time: number;

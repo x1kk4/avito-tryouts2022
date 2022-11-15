@@ -1,4 +1,5 @@
 import axios from "axios";
+import { Comment } from "../types/Comment";
 
 const REMOTE_API_HOST =
   process.env.REACT_APP_REMOTE_API_HOST ||
@@ -10,13 +11,23 @@ export const remoteApi = axios.create({
     "Access-Control-Allow-Credentials": true,
     "Content-Type": "application/json",
   },
-  withCredentials: true,
 });
 
 export default class CommentsService {
-  static getComments = (ids: number[]) => {
-    ids.map((id) => {
-      return remoteApi.get(`${id}.json?`);
-    });
+  static getComment = (id: number) => {
+    return remoteApi.get<Comment>(`${id}.json?`);
+  };
+
+  static getComments = (ids: Number[]) => {
+    try {
+      let result: Object[] = [];
+      ids.map(async (id) => {
+        const response = await remoteApi.get<Comment>(`${id}.json?`);
+        result.push(response.data);
+      });
+      return result;
+    } catch (e) {
+      console.error(`Oops... Sotemhing went wrong... (${e})`);
+    }
   };
 }
