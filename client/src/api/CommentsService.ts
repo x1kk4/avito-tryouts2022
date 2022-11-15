@@ -18,16 +18,4 @@ export default class CommentsService {
     return remoteApi.get<Comment>(`${id}.json?`);
   };
 
-  static getComments = (ids: Number[]) => {
-    try {
-      let result: Object[] = [];
-      ids.map(async (id) => {
-        const response = await remoteApi.get<Comment>(`${id}.json?`);
-        result.push(response.data);
-      });
-      return result;
-    } catch (e) {
-      console.error(`Oops... Sotemhing went wrong... (${e})`);
-    }
-  };
 }
