@@ -1,8 +1,8 @@
 import axios from "axios";
-import { NewsItem } from "../types/NewsItem";
+import { NewsItem } from "../types/NewsItems";
 
 const LOCAL_API_HOST =
-  process.env.REACT_APP_LOCAL_API_HOST || "localhost:9000/";
+  process.env.REACT_APP_LOCAL_API_HOST || "http://localhost:9000/";
 const REMOTE_API_HOST =
   process.env.REACT_APP_REMOTE_API_HOST ||
   "https://hacker-news.firebaseio.com/v0/item/";
@@ -13,7 +13,6 @@ export const localApi = axios.create({
     "Access-Control-Allow-Credentials": true,
     "Content-Type": "application/json",
   },
-  withCredentials: true,
 });
 
 export const remoteApi = axios.create({
