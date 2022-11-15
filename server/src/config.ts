@@ -4,6 +4,7 @@ import dotenv from "dotenv";
 import { Http, HttpRequestOptions, Method } from "node-https";
 import { updateNewsList } from "./newsService";
 import { NewsApiResponse, NewsComponentId } from "./types";
+import cors from "cors";
 dotenv.config();
 
 let temp: NewsComponentId[] = [];
@@ -14,6 +15,8 @@ const API = process.env.API_HOST;
 const DEFAULT_LIST_AMOUNT = parseInt(process.env.DEFAULT_LIST_AMOUNT as string);
 
 const app = express();
+
+app.use(cors());
 
 app.get("/news", async (req: express.Request, res: express.Response) => {
   try {
