@@ -1,7 +1,9 @@
-export type NewsList = number[];
+export type NewsId = number;
+
+export type NewsList = NewsId[];
 
 export interface NewsListState {
-  newsList: NewsList[];
+  newsList: NewsList;
   loading: boolean;
   error: null | string;
 }

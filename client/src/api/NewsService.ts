@@ -1,5 +1,6 @@
 import axios from "axios";
 import { NewsItem } from "../types/NewsItems";
+import { NewsId } from "../types/NewsList";
 
 const LOCAL_API_HOST =
   process.env.REACT_APP_LOCAL_API_HOST || "http://localhost:9000/";
@@ -18,10 +19,8 @@ export const localApi = axios.create({
 export const remoteApi = axios.create({
   baseURL: REMOTE_API_HOST,
   headers: {
-    "Access-Control-Allow-Credentials": true,
     "Content-Type": "application/json",
   },
-  withCredentials: true,
 });
 
 export default class NewsService {
@@ -33,7 +32,7 @@ export default class NewsService {
     return localApi.get("news/update");
   };
 
-  static getNewsItem = (id: number) => {
+  static getNewsItem = (id: NewsId) => {
     return remoteApi.get<NewsItem>(`${id}.json?`);
   };
 }

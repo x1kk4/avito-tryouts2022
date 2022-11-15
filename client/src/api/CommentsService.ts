@@ -8,9 +8,8 @@ const REMOTE_API_HOST =
 export const remoteApi = axios.create({
   baseURL: REMOTE_API_HOST,
   headers: {
-    // "Access-Control-Allow-Credentials": true,
     "Content-Type": "application/json",
-    withCredentuals: true,
+    // withCredentuals: true,
   },
 });
 

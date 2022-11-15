@@ -16,13 +16,14 @@ export const newsItemsReducer = (
 ): NewsItemsState => {
   switch (action.type) {
     case NewsItemsActionTypes.FETCH_NEWS_ITEMS:
-      return { loading: true, error: null, newsItems: [] };
+      return { loading: true, error: null, newsItems: [...state.newsItems] };
 
     case NewsItemsActionTypes.FETCH_NEWS_ITEMS_SUCCESS:
+      console.log(state.loading);
       return {
-        loading: false,
+        loading: action.payload.status,
         error: null,
-        newsItems: action.payload,
+        newsItems: [...state.newsItems, action.payload.data],
       };
 
     case NewsItemsActionTypes.FETCH_NEWS_ITEMS_ERROR:
