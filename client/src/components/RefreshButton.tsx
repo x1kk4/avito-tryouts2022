@@ -9,10 +9,12 @@ export const RefreshButton: FC = ({}) => {
 
   return (
     <IconButton
+      ml={8}
       // @ts-ignore
       onClick={() => dispatch(updateNewsItems())}
       aria-label="Refresh news"
       icon={<RepeatIcon />}
+      size={"lg"}
     />
   );
 };

@@ -5,7 +5,7 @@ export type Comment = {
   id: number;
   kids?: number[];
   parent: number;
-  text: string;
+  text?: string;
   time: number;
   type: string;
 };

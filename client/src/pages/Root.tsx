@@ -8,13 +8,6 @@ import { NewsCard } from "../components/NewsCard";
 import { NewsItem } from "../types/NewsItems";
 import { NewsList } from "../types/NewsList";
 
-// interface RootProps {
-//   newsItems: NewsItem[];
-//   newsList: NewsList;
-//   loading: boolean;
-//   error: string | null;
-// }
-
 export const Root: FC = ({}) => {
   const dispatch: Dispatch<any> = useDispatch();
   const { newsList, loading, error } = useTypedSelector(

@@ -1,7 +1,10 @@
 import { FC, memo } from "react";
+import { Comment } from "../types/Comment";
 
-const CommentElem: FC<{ by: string }> = ({ by }) => {
-  return <p>{by}</p>;
+interface CommentElementProps {
+  info: Comment;
+}
+
+export const CommentElem: FC<CommentElementProps> = ({ info }) => {
+  return <p>{info.by}</p>;
 };
-
-export default memo(CommentElem);

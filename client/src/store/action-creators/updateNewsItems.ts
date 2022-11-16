@@ -1,8 +1,6 @@
 import { Dispatch } from "redux";
 import { NewsItemsAction, NewsItemsActionTypes } from "../../types/NewsItems";
 import NewsService from "../../api/NewsService";
-import { NewsId } from "../../types/NewsList";
-import { Axios } from "axios";
 
 export const updateNewsItems = () => {
   return async (dispatch: Dispatch<NewsItemsAction>) => {

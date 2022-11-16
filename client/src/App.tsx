@@ -1,11 +1,10 @@
 import { FC } from "react";
-import { Flex } from "@chakra-ui/react";
+import { Divider, Flex } from "@chakra-ui/react";
 import { Header } from "./components/Header";
 import { Root } from "./pages/Root";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import { ContentWrapper } from "./components/ContentWrapper";
 import { Story } from "./pages/Story";
-import { useTypedSelector } from "./hooks/useTypedSelector";
 
 export const App: FC = () => {
   return (
