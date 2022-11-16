@@ -1,26 +1,34 @@
-import React, { Dispatch, FC, useEffect } from "react";
+import React, { Dispatch, FC, useEffect, useMemo } from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { fetchNewsList } from "../store/action-creators/newsList";
 import { fetchNewsItems } from "../store/action-creators/fetchNewsItems";
 import { Box, ScaleFade, SimpleGrid, Spinner } from "@chakra-ui/react";
 import { NewsCard } from "../components/NewsCard";
+import { NewsItem } from "../types/NewsItems";
+import { NewsList } from "../types/NewsList";
+
+// interface RootProps {
+//   newsItems: NewsItem[];
+//   newsList: NewsList;
+//   loading: boolean;
+//   error: string | null;
+// }
 
 export const Root: FC = ({}) => {
+  const dispatch: Dispatch<any> = useDispatch();
   const { newsList, loading, error } = useTypedSelector(
     (state) => state.newsList
   );
 
   const { newsItems } = useTypedSelector((state) => state.newsItems);
 
-  const dispatch: Dispatch<any> = useDispatch();
-
   useEffect(() => {
-    dispatch(fetchNewsList());
+    !(newsList.length === 100) && dispatch(fetchNewsList());
   }, []);
 
   useEffect(() => {
-    dispatch(fetchNewsItems(newsList));
+    !(newsItems.length > 0) && dispatch(fetchNewsItems(newsList));
   }, [newsList]);
 
   if (error) {
@@ -35,8 +43,8 @@ export const Root: FC = ({}) => {
             <Spinner thickness="4px" speed="1.5s" color="gray.500" size="xl" />
           </Box>
         )}
-        {newsItems.map((item) => (
-          <NewsCard info={item} />
+        {newsItems.map((item, key) => (
+          <NewsCard info={item} key={key} />
         ))}
       </SimpleGrid>
     </>

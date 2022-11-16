@@ -12,9 +12,11 @@ import {
   StatLabel,
   StatNumber,
   Center,
+  Divider,
 } from "@chakra-ui/react";
 import React, { FC } from "react";
 import { NewsItem } from "../types/NewsItems";
+import { Link, Route } from "react-router-dom";
 
 interface NewsCardProps {
   info: NewsItem;
@@ -38,37 +40,43 @@ export const NewsCard: FC<NewsCardProps> = ({ info }) => {
   };
 
   return (
-    <ScaleFade initialScale={0.9} in={true}>
-      <LinkBox
-        as="article"
-        maxW="sm"
-        p="5"
-        borderWidth="1px"
-        rounded="md"
-        h={"250px"}
-      >
-        <Flex justify={"space-between"}>
-          <Box>
-            <Box>{calcTime(info.time)}</Box>
+    <Link to={`story/${info.id}`}>
+      <ScaleFade initialScale={0.9} in={true} reverse={true}>
+        <LinkBox
+          as="article"
+          maxW="sm"
+          p="5"
+          borderWidth="1px"
+          rounded="md"
+          h={"250px"}
+        >
+          <Flex justify={"space-between"}>
             <Box>
-              <Text display={"contents"}>
-                <span>by </span>
-                <Text as="i">{info.by}</Text>
-              </Text>
+              <Box>{calcTime(info.time)}</Box>
+              <Box>
+                <Text display={"contents"}>
+                  <span>by </span>
+                  <Text as="i">{info.by}</Text>
+                </Text>
+              </Box>
             </Box>
-          </Box>
-          <Box>
-            <Stat>
-              <StatLabel>Score</StatLabel>
-              <StatNumber>{info.score}</StatNumber>
-            </Stat>
-          </Box>
-        </Flex>
-        <Heading size="md" my="2">
-          <LinkOverlay href="#">{info.title}</LinkOverlay>
-        </Heading>
-        <Text></Text>
-      </LinkBox>
-    </ScaleFade>
+            <Box>
+              <Stat>
+                <StatLabel>Score</StatLabel>
+                <StatNumber>{info.score}</StatNumber>
+              </Stat>
+            </Box>
+          </Flex>
+          <Divider />
+          <Center>
+            <Text fontSize="lg" mt={4} as="kbd">
+              {info.title}
+              {/* <LinkOverlay>{info.title}</LinkOverlay> */}
+            </Text>
+          </Center>
+          <Text></Text>
+        </LinkBox>
+      </ScaleFade>
+    </Link>
   );
 };
