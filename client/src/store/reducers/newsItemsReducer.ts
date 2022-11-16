@@ -19,7 +19,6 @@ export const newsItemsReducer = (
       return { loading: true, error: null, newsItems: [...state.newsItems] };
 
     case NewsItemsActionTypes.FETCH_NEWS_ITEMS_SUCCESS:
-      console.log(state.loading);
       return {
         loading: false,
         error: null,
@@ -29,6 +28,23 @@ export const newsItemsReducer = (
     case NewsItemsActionTypes.FETCH_NEWS_ITEMS_ERROR:
       return { loading: false, error: action.payload, newsItems: [] };
 
+    case NewsItemsActionTypes.UPDATE_NEWS_ITEMS:
+      return { loading: true, error: null, newsItems: [...state.newsItems] };
+
+    case NewsItemsActionTypes.UPDATE_NEWS_ITEMS_SUCCESS:
+      return {
+        loading: false,
+        error: null,
+        newsItems: [action.payload, ...state.newsItems.slice(0, -1)],
+      };
+    case NewsItemsActionTypes.UPDATE_NEWS_ITEMS_BREAK:
+      return { loading: false, error: null, newsItems: [...state.newsItems] };
+    case NewsItemsActionTypes.UPDATE_NEWS_ITEMS_ERROR:
+      return {
+        loading: false,
+        error: action.payload,
+        newsItems: [...state.newsItems],
+      };
     default:
       return state;
   }
