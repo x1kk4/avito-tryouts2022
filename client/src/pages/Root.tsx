@@ -3,6 +3,7 @@ import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { fetchNewsList } from "../store/action-creators/newsList";
 import { fetchNewsItems } from "../store/action-creators/newsItems";
+import { Box, ScaleFade, Spinner } from "@chakra-ui/react";
 
 export const Root: FC = ({}) => {
   const { newsList } = useTypedSelector((state) => state.newsList);
@@ -10,6 +11,7 @@ export const Root: FC = ({}) => {
   const { newsItems, error, loading } = useTypedSelector(
     (state) => state.newsItems
   );
+
   const dispatch: Dispatch<any> = useDispatch();
 
   useEffect(() => {
@@ -21,7 +23,15 @@ export const Root: FC = ({}) => {
   }, [newsList]);
 
   if (loading) {
-    return <h1>Loading...</h1>;
+    return (
+      <Spinner
+        thickness="4px"
+        speed="1.5s"
+        emptyColor="gray.400"
+        color="green.600"
+        size="xl"
+      />
+    );
   }
 
   if (error) {
@@ -30,12 +40,20 @@ export const Root: FC = ({}) => {
 
   return (
     <>
-      Done
-      <div>
-        {newsItems.map((item) => (
-          <div>{item.by}</div>
-        ))}
-      </div>
+      {newsItems.map((item) => (
+        <ScaleFade in={true}>
+          <Box
+            p="10px"
+            color="white"
+            bg="teal.400"
+            rounded="md"
+            shadow="md"
+            mb="10px"
+          >
+            {item.by}
+          </Box>
+        </ScaleFade>
+      ))}
     </>
   );
 };

@@ -4,25 +4,18 @@ import NewsService from "../../api/NewsService";
 import { NewsId } from "../../types/NewsList";
 
 export const fetchNewsItems = (list: NewsId[]) => {
-  return (dispatch: Dispatch<NewsItemsAction>) => {
+  return async (dispatch: Dispatch<NewsItemsAction>) => {
     try {
       dispatch({ type: NewsItemsActionTypes.FETCH_NEWS_ITEMS });
-      list.map((id) => {
-        // id === list[99]
-        //   ?
-        NewsService.getNewsItem(id).then((res) =>
-          dispatch({
-            type: NewsItemsActionTypes.FETCH_NEWS_ITEMS_SUCCESS,
-            payload: { status: false, data: res.data },
-          })
-        );
-        //   : NewsService.getNewsItem(id).then((res) =>
-        //   dispatch({
-        // type: NewsItemsActionTypes.FETCH_NEWS_ITEMS_SUCCESS,
-        // payload: { status: true, data: res.data },
-        //   })
-        // );
-      });
+
+      for (let i = 0; i < list.length; i++) {
+        const response = await NewsService.getNewsItem(list[i]);
+
+        dispatch({
+          type: NewsItemsActionTypes.FETCH_NEWS_ITEMS_SUCCESS,
+          payload: response.data,
+        });
+      }
     } catch (e) {
       dispatch({
         type: NewsItemsActionTypes.FETCH_NEWS_ITEMS_ERROR,

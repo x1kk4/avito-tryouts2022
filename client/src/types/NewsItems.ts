@@ -30,7 +30,7 @@ interface FetchNewsItemsAction {
 
 interface FetchNewsItemsSuccessAction {
   type: NewsItemsActionTypes.FETCH_NEWS_ITEMS_SUCCESS;
-  payload: { status: boolean; data: NewsItem };
+  payload: NewsItem;
 }
 
 interface FetchNewsItemsErrorAction {

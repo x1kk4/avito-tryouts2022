@@ -21,9 +21,9 @@ export const newsItemsReducer = (
     case NewsItemsActionTypes.FETCH_NEWS_ITEMS_SUCCESS:
       console.log(state.loading);
       return {
-        loading: action.payload.status,
+        loading: false,
         error: null,
-        newsItems: [...state.newsItems, action.payload.data],
+        newsItems: [...state.newsItems, action.payload],
       };
 
     case NewsItemsActionTypes.FETCH_NEWS_ITEMS_ERROR:

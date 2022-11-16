@@ -10,7 +10,7 @@ export const Header: FC = ({}) => {
       <Spacer />
       <div>Header title</div>
       <Spacer />
-      <ThemeButton />
+      <ThemeButton aria-label="1" />
     </Flex>
   );
 };
