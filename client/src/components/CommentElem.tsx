@@ -1,3 +1,4 @@
+import { Box, Collapse } from "@chakra-ui/react";
 import { FC, memo } from "react";
 import { Comment } from "../types/Comment";
 
@@ -6,5 +7,5 @@ interface CommentElementProps {
 }
 
 export const CommentElem: FC<CommentElementProps> = ({ info }) => {
-  return <p>{info.by}</p>;
+  return <Box>{info.by}</Box>;
 };

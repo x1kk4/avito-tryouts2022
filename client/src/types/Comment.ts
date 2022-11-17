@@ -1,3 +1,5 @@
+export type CommentId = number;
+
 export type Comment = {
   by?: string;
   deleted?: boolean;
@@ -8,4 +10,5 @@ export type Comment = {
   text?: string;
   time: number;
   type: string;
+  childs: Comment[];
 };

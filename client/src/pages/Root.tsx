@@ -1,12 +1,10 @@
-import React, { Dispatch, FC, useEffect, useMemo } from "react";
+import { Dispatch, FC, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { useTypedSelector } from "../hooks/useTypedSelector";
 import { fetchNewsList } from "../store/action-creators/newsList";
 import { fetchNewsItems } from "../store/action-creators/fetchNewsItems";
-import { Box, ScaleFade, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { Box, SimpleGrid, Spinner } from "@chakra-ui/react";
 import { NewsCard } from "../components/NewsCard";
-import { NewsItem } from "../types/NewsItems";
-import { NewsList } from "../types/NewsList";
 
 export const Root: FC = ({}) => {
   const dispatch: Dispatch<any> = useDispatch();

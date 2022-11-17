@@ -1,23 +1,19 @@
-import { Card, CardBody, CardFooter, CardHeader } from "@chakra-ui/card";
 import {
   LinkBox,
-  Heading,
   Text,
-  LinkOverlay,
   Box,
   ScaleFade,
   Flex,
   Stat,
-  StatHelpText,
   StatLabel,
   StatNumber,
   Center,
   Divider,
   useColorModeValue,
 } from "@chakra-ui/react";
-import React, { FC } from "react";
+import { FC } from "react";
 import { NewsItem } from "../types/NewsItems";
-import { Link, Route } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export const calcTime = (time: number) => {
   if (Math.round((new Date().getTime() / 1000 - time) / 60) > 120) {
