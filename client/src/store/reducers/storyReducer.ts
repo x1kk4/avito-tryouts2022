@@ -55,7 +55,7 @@ export const storyReducer = (
         error: null,
         comments: [action.payload.comment, ...state.comments],
         story: state.story,
-        commentsCount: action.payload.commentsCount,
+        commentsCount: state.commentsCount + action.payload.commentsCount,
       };
     case StoryActionTypes.FETCH_COMMENTS_BREAK:
       return {

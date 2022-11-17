@@ -9,7 +9,7 @@ const recursiveCommentsFetch = async (comment: Comment, counter: number) => {
     for (let i = 0; i < comment.kids.length; i++) {
       const newResponse = await CommentsService.getComment(comment.kids[i]);
       counter++;
-      comment.childs.push(newResponse.data);
+      //   comment.childs?.push(newResponse.data);
       recursiveCommentsFetch(newResponse.data, counter);
     }
   }
@@ -21,7 +21,7 @@ export const fetchComments = (list: CommentId[]) => {
       dispatch({ type: StoryActionTypes.FETCH_COMMENTS });
 
       for (let i = 0; i < list.length; i++) {
-        let counter: number = 0;
+        let counter: number = 1;
         let tempComment: Comment;
 
         const response = await CommentsService.getComment(list[i]);
@@ -33,7 +33,6 @@ export const fetchComments = (list: CommentId[]) => {
           type: StoryActionTypes.FETCH_COMMENTS_SUCCESS,
           payload: { comment: tempComment, commentsCount: counter },
         });
-        counter = 0;
       }
 
       dispatch({
