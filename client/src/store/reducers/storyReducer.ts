@@ -46,14 +46,14 @@ export const storyReducer = (
         error: null,
         comments: [],
         story: state.story,
-        commentsCount: state.commentsCount,
+        commentsCount: 0,
       };
 
     case StoryActionTypes.FETCH_COMMENTS_SUCCESS:
       return {
         loading: true,
         error: null,
-        comments: [action.payload.comment, ...state.comments],
+        comments: [...action.payload.comments],
         story: state.story,
         commentsCount: state.commentsCount + action.payload.commentsCount,
       };

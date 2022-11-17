@@ -1,7 +1,6 @@
-import { Box, Center, Collapse, Flex, Link, Spinner } from "@chakra-ui/react";
+import { Box, Center, Flex, Link, Spinner } from "@chakra-ui/react";
 import { Dispatch, FC, useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { NewsItem } from "../types/NewsItems";
 import { Text } from "@chakra-ui/react";
 import { ExternalLinkIcon } from "@chakra-ui/icons";
 import { calcTime } from "../components/NewsCard";
@@ -26,19 +25,6 @@ export const Story: FC<StoryProps> = ({}) => {
   );
 
   const { id }: Id = useParams();
-  const [storyData, setStoryData] = useState<NewsItem>({
-    deleted: true,
-    dead: true,
-    by: "init",
-    descendants: 0,
-    id: 0,
-    kids: [],
-    score: 0,
-    time: 0,
-    title: "init",
-    type: "init",
-    url: "init",
-  });
 
   useEffect(() => {
     dispatch(fetchStory(parseInt(id)));
@@ -75,7 +61,7 @@ export const Story: FC<StoryProps> = ({}) => {
         <Box ml={24}>
           <Text as={"kbd"}>
             {story && calcTime(story.time)}
-            {` by ${storyData.by}`}
+            {` by ${story?.by}`}
           </Text>
         </Box>
         <Center>

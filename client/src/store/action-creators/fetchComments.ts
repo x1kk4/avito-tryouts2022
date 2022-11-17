@@ -4,37 +4,50 @@ import CommentsService from "../../api/CommentsService";
 import { CommentId } from "../../types/Comment";
 import { Comment } from "../../types/Comment";
 
-const recursiveCommentsFetch = async (comment: Comment, counter: number) => {
-  if (comment.kids) {
-    for (let i = 0; i < comment.kids.length; i++) {
-      const newResponse = await CommentsService.getComment(comment.kids[i]);
-      counter++;
-      //   comment.childs?.push(newResponse.data);
-      recursiveCommentsFetch(newResponse.data, counter);
+const fetchCommentWithKids = async (
+  rootId: number
+): Promise<{ counter: number; comment: Comment }> => {
+  let counter = 1;
+
+  const rootComment = (await CommentsService.getComment(rootId)).data;
+  if (rootComment?.kids?.length) {
+    rootComment.childs = [];
+    for (const commentKidId of rootComment.kids) {
+      const fetchedKid = await fetchCommentWithKids(commentKidId);
+
+      counter += fetchedKid.counter;
+      rootComment.childs.push(fetchedKid.comment);
     }
+  } else {
+    rootComment.childs = null;
   }
+
+  return {
+    counter,
+    comment: rootComment,
+  };
 };
 
-export const fetchComments = (list: CommentId[]) => {
+export const fetchComments = (rootIdList: CommentId[]) => {
   return async (dispatch: Dispatch<StoryAction>) => {
     try {
       dispatch({ type: StoryActionTypes.FETCH_COMMENTS });
 
-      for (let i = 0; i < list.length; i++) {
-        let counter: number = 1;
-        let tempComment: Comment;
+      let counter = 1;
+      const rootCommentTree = [];
 
-        const response = await CommentsService.getComment(list[i]);
-        tempComment = response.data;
-
-        recursiveCommentsFetch(tempComment, counter);
-
-        dispatch({
-          type: StoryActionTypes.FETCH_COMMENTS_SUCCESS,
-          payload: { comment: tempComment, commentsCount: counter },
-        });
+      for (const rootId of rootIdList) {
+        const fetchedKid = await fetchCommentWithKids(rootId);
+        rootCommentTree.push(fetchedKid.comment);
+        counter += fetchedKid.counter;
       }
 
+      console.debug(rootCommentTree);
+
+      dispatch({
+        type: StoryActionTypes.FETCH_COMMENTS_SUCCESS,
+        payload: { comments: rootCommentTree, commentsCount: counter },
+      });
       dispatch({
         type: StoryActionTypes.FETCH_COMMENTS_BREAK,
       });

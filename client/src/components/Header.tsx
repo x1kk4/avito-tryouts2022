@@ -5,7 +5,6 @@ import {
   Divider,
   Flex,
   Spacer,
-  useColorMode,
   useColorModeValue,
   Text,
 } from "@chakra-ui/react";
@@ -15,6 +14,7 @@ import { BackButton } from "./BackButton";
 import { RefreshButton } from "./RefreshButton";
 import { RefresCommentshButton } from "./RefreshCommentsButton";
 import { ThemeButton } from "./ThemeButton";
+
 
 export const Header: FC = ({}) => {
   const location = useLocation();

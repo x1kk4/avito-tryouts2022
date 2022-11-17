@@ -28,7 +28,7 @@ export const Root: FC = ({}) => {
 
   return (
     <>
-      <SimpleGrid columns={5} spacing={4}>
+      <SimpleGrid columns={4} spacing={4}>
         {loading && (
           <Box position="fixed" z-zindex={100} left="1%" top="93%">
             <Spinner thickness="4px" speed="1.5s" color="gray.500" size="xl" />

@@ -10,5 +10,5 @@ export type Comment = {
   text?: string;
   time: number;
   type: string;
-  childs: Comment[];
+  childs: Comment[] | null;
 };

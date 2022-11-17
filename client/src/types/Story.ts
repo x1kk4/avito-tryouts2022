@@ -45,7 +45,7 @@ interface FetchCommentsAction {
 
 interface FetchCommentsSuccessAction {
   type: StoryActionTypes.FETCH_COMMENTS_SUCCESS;
-  payload: { comment: Comment; commentsCount: number };
+  payload: { comments: Comment[]; commentsCount: number };
 }
 
 interface FetchCommentsBreakAction {
